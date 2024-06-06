@@ -55,6 +55,14 @@ resource "aws_subnet" "Private_subnet" {
 }
 
 
+resource "aws_nat_gateway" "My_Nat" {
+  connectivity_type = "private"
+  subnet_id = aws_subnet.Private_subnet.id
+
+  depends_on = [ aws_internet_gateway.Igw ]
+  
+}
+
 resource "aws_route_table_association" "Public_subnet_association" {
   subnet_id = aws_subnet.Public_subnet.id
   route_table_id = aws_route_table.public_route.id
@@ -69,45 +77,6 @@ resource "aws_route_table_association" "Private_subnet_association" {
   
 }
 
-resource "aws_security_group" "Faks_Sg" {
-  name = "Faks_Sg"
-  description =  "Security group  for faks vpc"
-  vpc_id = aws_vpc.faks_vpc.id
-
-  tags = {
-    name = "Fikayo-SG"
-    key ="Faks_Sg" 
-  }
-  
-}
-
-
-resource "aws_vpc_security_group_ingress_rule" "allow_http" {
-  security_group_id = aws_security_group.Faks_Sg.id
-  cidr_ipv4 = "0.0.0.0/0"
-  from_port = 80
-  ip_protocol = "tcp"
-  to_port = 80
-  
-}
-
-resource "aws_vpc_security_group_ingress_rule" "allow_ssh" {
-  security_group_id = aws_security_group.Faks_Sg.id
-  cidr_ipv4 = "0.0.0.0/0"
-  from_port = 22
-  ip_protocol = "tcp"
-  to_port = 22
-  
-}
-
-resource "aws_vpc_security_group_egress_rule" "Send_http" {
-  cidr_ipv4 = "0.0.0.0/0"
- // from_port = 80
-  ip_protocol = "-1"
-  //to_port = 80
-  security_group_id = aws_security_group.Faks_Sg.id
-  
-}
 
 # resource "aws_vpc_security_group_egress_rule" "outbound_http" {
 #   cidr_ipv4 = "0.0.0.0/0"
