@@ -58,7 +58,7 @@ resource "aws_instance" "Vm-private-subnet" {
 }
 
 resource "aws_network_interface" "ENI-private" {
-  subnet_id = aws_subnet.Public_subnet.id
+  subnet_id = aws_subnet.Private_subnet.id
   private_ip = var.ENI_IP
   security_groups = [aws_security_group.Faks_Sg_private.id]
     tags = {
@@ -66,12 +66,12 @@ resource "aws_network_interface" "ENI-private" {
     }
 }
 
-resource "aws_eip" "Elastic_ip_private" {
-  domain = "vpc"
-}
+# resource "aws_eip" "Elastic_ip_private" {
+#   domain = "vpc"
+# }
 
 
-resource "aws_eip_association" "eip_assoc_private" {
-    allocation_id = aws_eip.Elastic_ip_private.id
-  network_interface_id = aws_network_interface.ENI-private.id
-}
+# resource "aws_eip_association" "eip_assoc_private" {
+#     allocation_id = aws_eip.Elastic_ip_private.id
+#   network_interface_id = aws_network_interface.ENI-private.id
+# }

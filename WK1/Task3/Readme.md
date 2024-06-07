@@ -17,3 +17,4 @@ Firstly I learnt about the file system, learning how to create files, move files
 - grep - this is used to search for patterns in a folder, file etc it has different options when searching such as ignoring case sensitivity e.t.c not also available in powershell 
 
 ![Basic Linux Commands1](./picturesFolder/LinuCommands.png)
+Fikayo Oluwakeye

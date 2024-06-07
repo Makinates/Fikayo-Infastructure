@@ -93,4 +93,4 @@ I was able to determin this dure to the mere fact that once i connected to my in
 
 Once the new Security group ingress rule was added, here was what the Ping request returned:
 
-![Request Success](./Assets/PingSuccess.png)
+![Request Success](./Assets/PingSuccess.png)Fikayo Oluwakeye
