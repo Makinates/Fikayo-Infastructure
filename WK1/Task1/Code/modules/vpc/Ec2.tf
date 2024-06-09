@@ -8,6 +8,9 @@ resource "aws_instance" "Vm" {
               yum install -y httpd
               systemctl start httpd
               systemctl enable httpd
+              wget https://github.com/prometheus/prometheus/releases/download/v2.52.0/prometheus-2.52.0.linux-amd64.tar.gz
+              tar xvfv prometheus*.tar.gz
+              sudo mv prometheus-2.52.0.linux-amd64 /opt/prometheus
               EOF
   network_interface {
     network_interface_id = aws_network_interface.ENI.id

@@ -17,4 +17,30 @@ Firstly I learnt about the file system, learning how to create files, move files
 - grep - this is used to search for patterns in a folder, file etc it has different options when searching such as ignoring case sensitivity e.t.c not also available in powershell 
 
 ![Basic Linux Commands1](./picturesFolder/LinuCommands.png)
+
+I finally installed ubuntu on the machine so now I have alinux terminal where i ran this commands documentation on how i finally got it working is in the readme for Task 4 and there I used most of the commands such as **Chmod**
+
+Now I will be using text editing Linux commands:
+ - **vim,nano,vi** are commands to a file 
+ ![Vim-original file](./picturesFolder/vim(originalfile).png)
+To get to the end of the file press `G`.
+To Edit press o 
+To save after editing the command **:wq + enter**
+
+![Edited text](./picturesFolder/EditedText.png)
+
+
+A command often used also is the **cat** command which is used to view content in a file
+This command can also be used to edit items in the txt file 
+![Cat Command](./picturesFolder/catCommand.png)
+
+To save and exit we use the command: **ctrl + D**
+
+**One thing I noticed is this command overwrites everyrthing in the text file so all my previous text was deleted**
+
+
+#### Commands used for system Admin
+- ps and top are used for looking at running proccesses
+
+
 Fikayo Oluwakeye

@@ -93,4 +93,47 @@ I was able to determin this dure to the mere fact that once i connected to my in
 
 Once the new Security group ingress rule was added, here was what the Ping request returned:
 
-![Request Success](./Assets/PingSuccess.png)Fikayo Oluwakeye
+![Request Success](./Assets/PingSuccess.png)
+
+
+### Accessing the private instance from the Public instance (Bastion Host)
+
+I then SSH into the public instance using putty 
+
+![SSH into Public](./Assets/Putty.png).
+
+To SSH into an instance requires fthe following steps 
+
+ - Download the key pair from AWS in a .pem extension
+ - Using puttygen, generate a .ppk file using the .pem file downloaded 
+ ![PuttyGen](./Assets/puttygen.png)
+ - Once the key is downloaded, head over to putty and do the following
+ ![PuttySteps](./Assets/PuttyConnect.png)
+  ![PuttySteps](./Assets/auth.png )
+
+
+Once I connected to the instance through ssh I Used the ec2 instance to ping the private ec2 instance 
+![Private instance details](./Assets/privateInstance.png)
+![Ping Secondary ec2](./Assets/pingSecondary.png)
+
+
+### Installing Wireshark on Public ec2
+
+- SSH into public instance as seen above
+- run:
+ **sudo yum update** 
+ **sudo yum istall wireshark**
+ ![WireShark](./Assets/Wireshark.png)
+
+ Once installed, I ran the command :
+     **sudo usermod -a -G wireshark ec2-user**
+     to add my user to the wireshark group.
+
+I then ran **sudo tshark -i ens5 -f "icmp"** to monitor icmp traffic.
+
+## Test to see if it works 
+
+I pinged the instance from my terminal and saw wireshark pick up the request being sent:
+![Wireshark Test](./Assets/WiresharkTest.png)
+
+Fikayo Oluwakeye

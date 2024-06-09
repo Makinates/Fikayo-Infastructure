@@ -36,3 +36,6 @@ terraform.rc
 # Ignore ppk and pem files
 *.ppk
 *.pem
+
+#Ignore script
+addEnv.py 

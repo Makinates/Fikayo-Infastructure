@@ -27,9 +27,10 @@ resource "aws_route_table" "public_route" {
 resource "aws_route_table" "private_route" {
   vpc_id = aws_vpc.faks_vpc.id
 
-  # route {
-    
-  # }
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.My_Nat.id
+  }
 
   tags = {
     Name = "Private_Route_table"
@@ -54,15 +55,29 @@ resource "aws_subnet" "Private_subnet" {
   }
 }
 
+resource "aws_eip" "eip_Nat"{
+  domain = "vpc"
+  tags = {
+    Name = "EIP_FOR_NAT"
+  }
+}
 
 resource "aws_nat_gateway" "My_Nat" {
-  connectivity_type = "private"
-  subnet_id = aws_subnet.Private_subnet.id
+  connectivity_type = "public"
+  allocation_id = aws_eip.eip_Nat.id
+  subnet_id = aws_subnet.Public_subnet.id
+
 
   depends_on = [ aws_internet_gateway.Igw ]
   
+  
 }
 
+# resource "aws_eip_association" "eip_and_nat" {
+#    allocation_id = aws_eip.eip_Nat.id
+#   network_interface_id = aws_nat_gateway.My_Nat.id
+  
+# }
 resource "aws_route_table_association" "Public_subnet_association" {
   subnet_id = aws_subnet.Public_subnet.id
   route_table_id = aws_route_table.public_route.id
