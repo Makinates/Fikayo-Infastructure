@@ -8,7 +8,7 @@ on:
       config:
         description: 'Terraform Config to apply(config1 or config2)'
         required: true
-        default:'config2'
+        default: 'config2'
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -25,10 +25,10 @@ jobs:
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
-        with: 
+      with: 
           role-to-assume: ${{secrets.AWS_ROLE}}
           aws-region: ${{secrets.AWS_REGION}}
-          role-session-name:github-workflow-s3-access 
+          role-session-name: github-workflow-s3-access 
 
     - name: Initialize Terraform
       env: 
