@@ -152,7 +152,7 @@ resource "aws_eip_association" "eip_assoc" {
 }
 
 resource "aws_security_group" "rds_sg" {
-  vpc_id = aws_vpc.main.id
+  vpc_id = aws_vpc.faks_vpc.id
 
   ingress {
     from_port   = 3306
