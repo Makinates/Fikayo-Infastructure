@@ -36,7 +36,7 @@ resource "aws_subnet" "Public_subnet" {
 resource "aws_subnet" "public2" {
   vpc_id                  = aws_vpc.faks_vpc.id
   cidr_block              = "10.0.2.0/24"
-  availability_zone       = "us-west-2b" # Replace with your desired AZ
+  availability_zone       = "us-east-1a" # Replace with your desired AZ
 
   tags = {
     Name = "main-public-subnet-2"
