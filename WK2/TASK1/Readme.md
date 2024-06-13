@@ -59,4 +59,17 @@ sts.amazonaws.com
 
 In order to create the workflow, we have to create a special directory for the yml file as this is where github will pull from. The folder structure looks like this **_.github/workflows/_.yml**
 
-After the Yml file was created I moved the folder to the root directory and then it failed
+After the Yml file was created I moved the folder to the root directory and then it failed. Due to several reasons which I fixed :
+
+- Changed my ec2 ami to an ubuntu AMI which led to changes in my commands from yum to apt
+```
+        "sudo apt update -y",
+  #     "sudo apt install -y git",
+  #     "sudo apt install dotnet-sdk-6.0",  # Install .NET SDK
+  #     "git clone https://github.com/fikay/360Rides.git",
+  #     "cd 360Rides",
+  #     "dotnet restore",  # Restore dependencies
+  #     "dotnet publish -c Release -o published",  # Publish the application
+  #     "sudo cp -r published /var/www/360Rides",  # Copy published files to web server directory
+  #     "sudo systemctl restart nginx"  # Restart web server (assuming you're using Nginx)
+```
