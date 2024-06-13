@@ -27,7 +27,7 @@ resource "aws_route_table" "public_route" {
 resource "aws_subnet" "Public_subnet" {
   vpc_id = aws_vpc.faks_vpc.id
   availability_zone = "us-east-1b"
-  cidr_block = "10.0.0.0/28"
+  cidr_block = "10.0.1.0/28"
   tags = {
     Name = "Public_subnet"
   }
@@ -35,7 +35,7 @@ resource "aws_subnet" "Public_subnet" {
 
 resource "aws_subnet" "public2" {
   vpc_id                  = aws_vpc.faks_vpc.id
-  cidr_block              = "10.0.2.0/24"
+  cidr_block              = "10.0.2.0/28"
   availability_zone       = "us-east-1a" # Replace with your desired AZ
 
   tags = {
