@@ -65,11 +65,45 @@ After the Yml file was created I moved the folder to the root directory and then
 ```
         "sudo apt update -y",
   #     "sudo apt install -y git",
+        "sudo apt install nginx"
   #     "sudo apt install dotnet-sdk-6.0",  # Install .NET SDK
   #     "git clone https://github.com/fikay/360Rides.git",
   #     "cd 360Rides",
   #     "dotnet restore",  # Restore dependencies
   #     "dotnet publish -c Release -o published",  # Publish the application
   #     "sudo cp -r published /var/www/360Rides",  # Copy published files to web server directory
+        cd /var/www/360Rides
+        dotnet 360
   #     "sudo systemctl restart nginx"  # Restart web server (assuming you're using Nginx)
 ```
+
+
+The server kept running the default nginx home  page so i ahd to reconfigure the default file found at ***/etc/nginx/sites-available***
+
+
+E=xample of config used :
+```
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name example.com;  # Replace with your domain or server IP
+
+    location / {
+        proxy_pass         http://localhost:5000;  # Replace with your .NET app's URL
+        proxy_http_version 1.1;
+        proxy_set_header   Upgrade $http_upgrade;
+        proxy_set_header   Connection keep-alive;
+        proxy_set_header   Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+    }
+
+    error_log /var/log/nginx/dotnetapp_error.log;
+    access_log /var/log/nginx/dotnetapp_access.log;
+}
+
+```
+
+Once that was 

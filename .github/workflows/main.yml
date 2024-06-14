@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'WK1/**'
 
 permissions:
   id-token: write
