@@ -9,7 +9,8 @@ I went by step 2 in order to learn more about roles in AWS and below are the ste
 
 ### Authenticating to AWS
 
-- First step was to create an **identity provider** in AWS. What is an identity provider? [Identity Providers](https://www.okta.com/identity-101/why-your-company-needs-an-identity-provider/). AWS has two provider type: SAML and OpenID.
+- First step was to create an **identity provider** in AWS. What is an identity provider? [Identity Providers](https://www.okta.com/identity-101/why-your-company-needs-an-identity-provider/). AWS has two provider type: SAML and OpenID. (Done in AWS not thrrough terraform)
+- I made changes to the github workflow to only run when changes are made to WK1 folders to server as my control.
 
 ```
 https://token.actions.githubusercontent.com
@@ -62,7 +63,11 @@ In order to create the workflow, we have to create a special directory for the y
 After the Yml file was created I moved the folder to the root directory and then it failed. Due to several reasons which I fixed :
 
 - Changed my ec2 ami to an ubuntu AMI which led to changes in my commands from yum to apt
+- I also installed mariadb to serve as my local database so i followed this material to get it installed on my ec2 instance
+  [MariaDb](https://phoenixnap.com/kb/how-to-install-mariadb-ubuntu)
+
 ```
+
         "sudo apt update -y",
   #     "sudo apt install -y git",
         "sudo apt install nginx"
@@ -75,13 +80,13 @@ After the Yml file was created I moved the folder to the root directory and then
         cd /var/www/360Rides
         dotnet 360
   #     "sudo systemctl restart nginx"  # Restart web server (assuming you're using Nginx)
+
 ```
 
-
-The server kept running the default nginx home  page so i ahd to reconfigure the default file found at ***/etc/nginx/sites-available***
-
+The server kept running the default nginx home page so i ahd to reconfigure the default file found at **_/etc/nginx/sites-available_**
 
 E=xample of config used :
+
 ```
 server {
     listen 80;
@@ -106,4 +111,4 @@ server {
 
 ```
 
-Once that was 
+Once that was
