@@ -36,7 +36,7 @@ sts.amazonaws.com
             "Action": "sts:AssumeRoleWithWebIdentity",
             "Condition": {
                 "StringEquals": {
-                    "token.actions.githubusercontent.com:sub": "repo:fikayodir/githhubFlow:ref:refs/heads/main"
+                    "token.actions.githubusercontent.com:sub": "repo:Makinates/Fikayo-Infastructure:ref:refs/heads/main"
                 }
             }
         }
