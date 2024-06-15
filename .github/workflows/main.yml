@@ -1,11 +1,11 @@
 name: "Terraform action"
 
-on: 
+on:
   push:
     branches:
       - main
     paths:
-      - 'WK1/**'
+      - "WK1/**"
 
 permissions:
   id-token: write
@@ -14,39 +14,77 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
-    steps: 
-    - name: Checkout code
-      uses: actions/checkout@v2
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_version: 1.3.0
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with: 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.3.0
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
           role-to-assume: ${{ secrets.AWS_ROLE }}
           aws-region: ${{ secrets.AWS_REGION }}
-          role-session-name: GitHub-OIDC-TERRAFORM 
+          role-session-name: GitHub-OIDC-TERRAFORM
 
-    - name: Initialize Terraform
-      env: 
-        AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
-        AWS_BUCKET_KEY_NAME: ${{ secrets.AWS_BUCKET_KEY_NAME }}
-      run: |
-        cd WK2/TASK1
-        terraform init -backend-config="bucket=${AWS_BUCKET_NAME}" -backend-config="key=${AWS_BUCKET_KEY_NAME}"
+      - name: Initialize Terraform
+        env:
+          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+          AWS_BUCKET_KEY_NAME: ${{ secrets.AWS_BUCKET_KEY_NAME }}
+        run: |
+          cd WK2/TASK1
+          terraform init -backend-config="bucket=${AWS_BUCKET_NAME}" -backend-config="key=${AWS_BUCKET_KEY_NAME}"
 
-    - name: Terraform plan
-      id: plan
-      run: |
-        cd WK2/TASK1
-        terraform plan
-      continue-on-error: false
+      - name: Terraform plan
+        id: plan
+        run: |
+          cd WK2/TASK1
+          terraform plan
+        continue-on-error: false
 
-    - name: Apply Terraform
-      run: |
-        cd WK2/TASK1
-        terraform apply -auto-approve
+      - name: Apply Terraform
+        run: |
+          cd WK2/TASK1
+          terraform apply -auto-approve
+      - name: set up SSH into my instance
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.EC2_KEYPAIR }}
+      - name: SSH into EC2 and run commands
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@100.28.178.55 'bash -s' <<'EOF'
+            echo "Connected to EC2"
+            sudo apt update
+            sudo apt install -y git
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+            source ~/.bashrc
+            nvm install --lts
+            sudo apt install -y postgresql postgresql-contrib
+
+            # Access the database and configure it with a user 
+            sudo -u postgres psql -c "CREATE DATABASE Realworldapp;"
+            sudo -u postgres psql -c "CREATE USER fikayo WITH ENCRYPTED PASSWORD 'development';"
+            sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE Realworldapp TO fikayo;"
+
+            # Clone the Repository 
+            git clone https://github.com/gothinkster/node-express-realworld-example-app.git
+            cd node-express-realworld-example-app/
+            touch .env
+            cat <<EOL >> .env
+            DATABASE_URL=postgresql://fikayo:development@localhost:5432/Realworldapp
+            JWT_SECRET=
+            NODE_ENV=production
+            EOL
+
+            npm install
+            
+          EOF
+
+      - name: Run Tests
+        run: |
+          cd node-express-realworld-example-app
+          npm test

@@ -127,3 +127,41 @@ dotnet ef database update  --project 360.DataAccess --startup-project 360Rides
 
 
 ![](./Assets/MyWORKINGAPPWITHOUTCSS.png)
+
+
+### STEPS TO RUN A NODEJS APP
+
+```
+sudo apt update
+sudo apt install -y git 
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+source ~/.bashrc
+nvm install --lts
+sudo apt install -y postgresql postgresql-contrib
+
+# Access the database and configure it with a user 
+sudo -i -u postgres
+psql
+CREATE DATABASE Realworldapp;
+CREATE USER fikayo WITH ENCRYPTED PASSWORD 'development';
+GRANT ALL PRIVILEGES ON DATABASE Realworldapp TO fikayo;
+\q
+exit
+
+git clone https://github.com/gothinkster/node-express-realworld-example-app.git
+cd node-express-realworld-example-app/
+touch .env
+cat <<EOL >> .env
+DATABASE_URL=postgresql://fikayo:development@localhost:5432/Realworldapp
+JWT_SECRET=
+NODE_ENV=production
+EOL
+
+npx prisma generate
+node dist/api/main.js
+
+ "test:unit": "jest --runInBand --testPathPattern=__tests__/unit",
+    "test:integration": "jest --runInBand --testPathPattern=__tests__/integration",
+    "test:e2e": "jest --runInBand --testPathPattern=__tests__/e2e"
+
+```
