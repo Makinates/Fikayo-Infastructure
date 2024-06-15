@@ -7,21 +7,22 @@
 **Folder Structure**
 
 # Setting up Terraform and AWS
- The first step is to get an IAC to setup the infastructure and the IAC chosen is terraform. I installed the terraform CLI onto my system and steps taken to install are found here:
+
+The first step is to get an IAC to setup the infastructure and the IAC chosen is terraform. I installed the terraform CLI onto my system and steps taken to install are found here:
 [Guide to install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli).
 
-Once the CLI was installed I chose my cloud provider of choice which in this case is __AWS__.
+Once the CLI was installed I chose my cloud provider of choice which in this case is **AWS**.
 
 **AWS ACCOUNT**
 
-I created my AWS account and according to the universal steps of devops __we do not use our AWS root account to create our infastructure__. I created a new user which is given the admin access to the AWS console and is protected with MFA. 
+I created my AWS account and according to the universal steps of devops **we do not use our AWS root account to create our infastructure**. I created a new user which is given the admin access to the AWS console and is protected with MFA.
 
 In the account I then created an access key named terraform in the console:
 ![Access_Key_cREATION](./Assets/Createaccesskey_IAM_Global.png)
 
 Link to setting up terraform with AWS: [LINKING AWS TO TERRRAFORM](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/aws-build)
 
-Once the access key and secret access key is created and following the steps in the documentation, only different step is instead of the import in my **visual studio code IDE** terminal, 
+Once the access key and secret access key is created and following the steps in the documentation, only different step is instead of the import in my **visual studio code IDE** terminal,
 
 **$env:AWS_ACCESS_KEY_ID="your_access key"**
 
@@ -29,7 +30,7 @@ Once the access key and secret access key is created and following the steps in 
 
 Once that was done I used the **terraform init** command to initialize terraform with AWS.
 
-# Creating Infastructure in AWS Using Terraform 
+# Creating Infastructure in AWS Using Terraform
 
 The task requires us to create an virtual machines but in order to have connectivity to the machines we have to create a network for the machines to reside. Due to that we have to create a vpc for the machine to reside.
 
@@ -37,13 +38,14 @@ The task requires us to create an virtual machines but in order to have connecti
 
 These are the steps required to create a VPC and bear in mind this is my personal vpc so you would have to create yours to fit your needs. My needs require a machine which is available to the public and one which is not available to the public but certain IP addresses.
 
-Link  to VPC File: [Vpc](./Code/modules/vpc/Vpc.tf) 
+Link to VPC File: [Vpc](./Code/modules/vpc/Vpc.tf)
+
 - Create the VPC with the CIDR Block of your choosing
 - Create an Internet Gateway (This enables connection to the internet)
-- Create a Public and private route table 
+- Create a Public and private route table
 - Create a public and private subnet (Here is where the machines will reside)
 - Associate the route tables with the subnets
-- Create a security group with the requires Ingress and Egress rules 
+- Create a security group with the requires Ingress and Egress rules
 - If a private subnet is being used a NAT gateway will be required in order for the machines or storage to connect to the internet.
 
 This steps make it easy to deploy the VPC and gives me a map to follow when writing up the terrraform code.
@@ -65,14 +67,11 @@ Steps Taken to create the EC2:
 - Place the Ec2 in the public subnet to allow it connect to the internet/ accessible by the internet
 - I then attached the network Interface to an Elastic IP address( this prevents the IP address of the instance from changing whenever the instance is restarted)
 
-
-
 After configuring the files with terraform I applied it to my aws account using the command **terraform apply --auto-approve** and this tell terraform to apply this infastructure in my AWS console.
 
 Proof of it working :
 IP ADDRESS = 52.200.92.54
-![Public EC2 with apache installed](./Assets/successfullyLaunchedEc2(Public).png)
-
+![Public EC2 with apache installed](<./Assets/successfullyLaunchedEc2(Public).png>)
 
 ### TESTING THE CONNECTIVITY OF THE INSTANCES USING PING
 
@@ -88,52 +87,48 @@ I was able to determin this dure to the mere fact that once i connected to my in
 
 ![Request Timed Out](./Assets/PingError.png)
 
-
 **solved issue picture**
 
 Once the new Security group ingress rule was added, here was what the Ping request returned:
 
 ![Request Success](./Assets/PingSuccess.png)
 
-
 ### Accessing the private instance from the Public instance (Bastion Host)
 
-I then SSH into the public instance using putty 
+I then SSH into the public instance using putty
 
 ![SSH into Public](./Assets/Putty.png).
 
-To SSH into an instance requires fthe following steps 
+To SSH into an instance requires fthe following steps
 
- - Download the key pair from AWS in a .pem extension
- - Using puttygen, generate a .ppk file using the .pem file downloaded 
- ![PuttyGen](./Assets/puttygen.png)
- - Once the key is downloaded, head over to putty and do the following
- ![PuttySteps](./Assets/PuttyConnect.png)
-  ![PuttySteps](./Assets/auth.png )
+- Download the key pair from AWS in a .pem extension
+- Using puttygen, generate a .ppk file using the .pem file downloaded
+  ![PuttyGen](./Assets/puttygen.png)
+- Once the key is downloaded, head over to putty and do the following
+  ![PuttySteps](./Assets/PuttyConnect.png)
+  ![PuttySteps](./Assets/auth.png)
 
-
-Once I connected to the instance through ssh I Used the ec2 instance to ping the private ec2 instance 
+Once I connected to the instance through ssh I Used the ec2 instance to ping the private ec2 instance
 ![Private instance details](./Assets/privateInstance.png)
 ![Ping Secondary ec2](./Assets/pingSecondary.png)
-
 
 ### Installing Wireshark on Public ec2
 
 - SSH into public instance as seen above
 - run:
- **sudo yum update** 
- **sudo yum istall wireshark**
- ![WireShark](./Assets/Wireshark.png)
+  **sudo yum update**
+  **sudo yum istall wireshark**
+  ![WireShark](./Assets/Wireshark.png)
 
- Once installed, I ran the command :
-     **sudo usermod -a -G wireshark ec2-user**
-     to add my user to the wireshark group.
+Once installed, I ran the command :
+**sudo usermod -a -G wireshark ec2-user**
+to add my user to the wireshark group.
 
 I then ran **sudo tshark -i ens5 -f "icmp"** to monitor icmp traffic.
 
-## Test to see if it works 
+## Test to see if it works
 
 I pinged the instance from my terminal and saw wireshark pick up the request being sent:
 ![Wireshark Test](./Assets/WiresharkTest.png)
 
-Fikayo Oluwakeye -V3
+Fikayo Oluwakeye -V3.1
