@@ -56,7 +56,7 @@ jobs:
           ssh-private-key: ${{ secrets.EC2_KEYPAIR }}
       - name: SSH into EC2 and run commands
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@118.233.211.204 'bash -s' <<'EOF'
+          ssh -o StrictHostKeyChecking=no ubuntu@18.233.211.204 'bash -s' <<'EOF'
             echo "Connected to EC2"
             sudo apt update
             sudo apt install -y git
