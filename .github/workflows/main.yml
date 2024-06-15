@@ -86,6 +86,7 @@ jobs:
       - name: Run Tests
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@18.233.211.204 'bash -s' <<'EOF'
-            cd node-express-realworld-example-app/
+            cd node-express-realworld-example-app
+            npm install
             npm test
           EOF
