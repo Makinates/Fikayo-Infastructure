@@ -80,8 +80,7 @@ jobs:
             NODE_ENV=production
             EOL
 
-            npm install
-            
+            npm install 
           EOF
 
       - name: Run Tests
