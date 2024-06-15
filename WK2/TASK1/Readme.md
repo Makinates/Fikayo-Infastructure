@@ -20,9 +20,9 @@ sts.amazonaws.com
 
 ![OpenID Connect](./Assets/OpeniId.png)
 
-- Created a bucket to store my terraform state files.
+- Created a bucket to store my terraform state files(github-action-flow).
 
-- Then I created a custoim trust policy which is the role the user will assume when they sign in using their github credentials.
+- Then I created a custom trust policy which is the role the user will assume when they sign in using their github credentials.
 
 ```
 {
@@ -64,6 +64,11 @@ After the Yml file was created I moved the folder to the root directory and then
 
 - Changed my ec2 ami to an ubuntu AMI which led to changes in my commands from yum to apt
 - I also installed mariadb to serve as my local database so i followed this material to get it installed on my ec2 instance
+Once the database was up I created a db in it using this commands. This is after i connected to the db step is in the website link I attached
+```
+CREATE DATABASE mydb
+USE mydb - switches to the db server
+```
   [MariaDb](https://phoenixnap.com/kb/how-to-install-mariadb-ubuntu)
 
 ```
@@ -112,3 +117,13 @@ server {
 ```
 
 Once that was
+
+
+
+```
+dotnet ef migrations add newMigration --project 360.DataAccess --startup-project 360Rides
+dotnet ef database update  --project 360.DataAccess --startup-project 360Rides
+```
+
+
+![](./Assets/MyWORKINGAPPWITHOUTCSS.png)
