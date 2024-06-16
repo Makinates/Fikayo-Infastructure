@@ -23,7 +23,7 @@ jobs:
       - name: Check Running Container
         run: |
           cd WK2/Task2/getting-started-app
-          docker compose logs -f
+          docker compose logs -t --tail=100
 
       - name: Tear down compose
         run: |
