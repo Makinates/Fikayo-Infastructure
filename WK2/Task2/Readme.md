@@ -168,3 +168,4 @@ And then ran the original command again.
 ## CI/CD
 
 I just added a Yaml file to run the docker compose file
+![Workign job](./Assets/workingJob.png)

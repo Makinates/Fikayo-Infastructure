@@ -20,3 +20,10 @@ jobs:
           cd WK2/Task2/getting-started-app
           sudo docker compose up -d
         continue-on-error: false
+      - name: Check Running Container
+        run: docker compose logs -f
+
+      - name: Tear down compose
+        run: |
+          cd WK2/Task2/getting-started-app
+          sudo docker compose down
