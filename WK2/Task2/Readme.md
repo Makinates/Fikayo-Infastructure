@@ -121,6 +121,7 @@ To see logs of the network:
 
 ```
 docker compose logs -f
+
 ```
 
 #### PUSHING AND PULLING DOCKER IMAGES
