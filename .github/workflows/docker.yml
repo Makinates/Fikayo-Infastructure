@@ -17,6 +17,6 @@ jobs:
 
       - name: Run compose file
         run: |
-          cd WK2/TASK2/getting-started-app
+          cd WK2/Task2/getting-started-app
           sudo docker compose up -d
         continue-on-error: false
