@@ -165,3 +165,6 @@ node dist/api/main.js
     "test:e2e": "jest --runInBand --testPathPattern=__tests__/e2e"
 
 ```
+
+
+This was included in the yaml file 

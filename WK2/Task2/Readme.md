@@ -73,7 +73,7 @@ This task involves running an application in a docker conatiner and for this tas
   sudo docker run -dp 127.0.0.1:3001:3000 --mount type=volume,src=todo-db,target=/etc/todos second-img
   ``` 
 
-  ## IMAGE OF BTH RUNNING SIMULTANEOULSY USING THE SAME VOLUME  
+  ## IMAGE OF BOTH RUNNING SIMULTANEOULSY USING THE SAME VOLUME  
   ![WORKING](./Assets/SIMULapp.png)
 
   Only drawback is you have to reload the page fo rthe second to get the updated todo list.

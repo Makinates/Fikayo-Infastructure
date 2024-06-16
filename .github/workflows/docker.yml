@@ -1,0 +1,22 @@
+name: "Terraform action"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "WK2/Task2/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run compose file
+        run: |
+          cd WK2/TASK2/getting-started-app
+          sudo docker compose up -d
+        continue-on-error: false

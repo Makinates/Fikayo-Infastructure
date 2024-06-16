@@ -89,4 +89,8 @@ jobs:
             cd node-express-realworld-example-app
             npm install
             npm test
+            npm test:e2e
+
+            # Once tested serve the application
+            npx nx serve api 
           EOF
