@@ -1,0 +1,7 @@
+{
+  "Name": "string",
+  "Description": "string",
+  "SigningProtocol": "sigv4",
+  "SigningBehavior": "always",
+  "OriginAccessControlOriginType": "s3"
+}

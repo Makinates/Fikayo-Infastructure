@@ -1,44 +1,85 @@
 {
-    "CallerReference": "unique-string-$(date +%s)",
-    "Aliases": {
-        "Quantity": 0
-    },
-    "DefaultRootObject": "index.html",
-    "Origins": {
-        "Quantity": 1,
-        "Items": [
-            {
-                "Id": "S3-my-bucket",
-                "DomainName": "my-static-website-bucket12.s3-website.us-east-1.amazonaws.com",
-                "CustomOriginConfig": {
-                    "HTTPPort": 80,
-                    "HTTPSPort": 443,
-                    "OriginProtocolPolicy": "http-only",
-                    "OriginSSLProtocols": {
-                        "Quantity": 1,
-                        "Items": [
-                            "TLSv1.2"
-                        ]
-                    }
-                }
-            }
-        ]
-    },
-    "DefaultCacheBehavior": {
-        "TargetOriginId": "S3-my-bucket",
-        "ViewerProtocolPolicy": "allow-all",
-        "TrustedSigners": {
-            "Enabled": false,
-            "Quantity": 0
+  "CallerReference": "unique-string-$(date +%s)",
+  "Aliases": {
+    "Quantity": 0
+  },
+  "DefaultRootObject": "index.html",
+  "Origins": {
+    "Quantity": 1,
+    "Items": [
+      {
+        "Id": "S3-my-static-website-bucket",
+        "DomainName": "my-static-website-bucket12.s3-website-us-east-1.amazonaws.com",
+        "OriginPath": "",
+        "CustomHeaders": {
+          "Quantity": 0
         },
-        "ForwardedValues": {
-            "QueryString": false,
-            "Cookies": {
-                "Forward": "none"
-            }
+        "CustomOriginConfig": {
+          "HTTPPort": 80,
+          "HTTPSPort": 443,
+          "OriginProtocolPolicy": "http-only",
+          "OriginSslProtocols": {
+            "Quantity": 3,
+            "Items": ["TLSv1", "TLSv1.1", "TLSv1.2"]
+          },
+          "OriginReadTimeout": 30,
+          "OriginKeepaliveTimeout": 5
         },
-        "MinTTL": 0
+        "ConnectionAttempts": 3,
+        "ConnectionTimeout": 10,
+        "OriginShield": {
+          "Enabled": false
+        },
+        "OriginAccessControlId": "E28VLN2UPVDXGW"
+      }
+    ]
+  },
+  "DefaultCacheBehavior": {
+    "TargetOriginId": "S3-my-static-website-bucket",
+    "ViewerProtocolPolicy": "redirect-to-https",
+    "AllowedMethods": {
+      "Quantity": 2,
+      "Items": ["GET", "HEAD"],
+      "CachedMethods": {
+        "Quantity": 2,
+        "Items": ["GET", "HEAD"]
+      }
     },
-    "Comment": "",
-    "Enabled": true
+    "Compress": true,
+    "LambdaFunctionAssociations": {
+      "Quantity": 0
+    },
+    "FunctionAssociations": {
+      "Quantity": 0
+    },
+    "FieldLevelEncryptionId": "",
+    "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+    "OriginRequestPolicyId": "88a5eaf4-2fd4-4709-b370-b4c650ea3fcf",
+
+    "ResponseHeadersPolicyId": "",
+    "SmoothStreaming": false
+  },
+  "Comment": "",
+  "Logging": {
+    "Enabled": false,
+    "IncludeCookies": false,
+    "Bucket": "",
+    "Prefix": ""
+  },
+  "PriceClass": "PriceClass_All",
+  "Enabled": true,
+  "ViewerCertificate": {
+    "CloudFrontDefaultCertificate": true,
+    "MinimumProtocolVersion": "TLSv1.2_2021",
+    "CertificateSource": "cloudfront"
+  },
+  "Restrictions": {
+    "GeoRestriction": {
+      "RestrictionType": "none",
+      "Quantity": 0
+    }
+  },
+  "WebACLId": "",
+  "HttpVersion": "http2",
+  "IsIPV6Enabled": true
 }
