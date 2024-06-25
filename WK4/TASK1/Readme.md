@@ -18,3 +18,12 @@ To fix this I had to specify my actual folder where the cloud should target
     ![](./Assets/Credentials.png)
 In order to fix this I had to add variables in my terraform cloud variables settings
     ![](./Assets/CredentialsFix.png)
+    ![](./Assets/VARAIBLES.png)
+- Once that was included and oushed to the REPO, here was what the triggered run looked like:
+    ![](./Assets/TRIGGEREDRUN.png)
+- It planned everything but did not apply as thats the setting I have set up it will require a confirmation before apllying the changes to the AWS account:
+    ![](./Assets/pendingapproval.png)
+To change the setting to auto apply the changes, I can set it to auto-apply:
+    ![](./Assets/autoapply.png)
+- The apply shows you what resources were created and what resources failled to create and I can apply changes to create just those which failed:
+    ![](./Assets/failedResources.png)
