@@ -261,8 +261,8 @@ resource "aws_network_acl" "public_nacl" {
     rule_no    = 400
     action     = "allow"
     cidr_block = "0.0.0.0/0"
-    from_port  = -1
-    to_port    = -1
+    from_port  = 0
+    to_port    = 255
   }
 
   tags = {
