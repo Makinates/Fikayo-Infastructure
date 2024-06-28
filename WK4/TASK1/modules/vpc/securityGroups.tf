@@ -207,7 +207,7 @@ resource "aws_security_group" "Faks_Sg_private" {
 
 /////// NACLS FOR THE VPB AND SUBNETS
 
-resource "aws_network_acl" "PUBLIC  " {
+resource "aws_network_acl" "public_nacl" {
   vpc_id = aws_vpc.faks_vpc.id
   subnet_ids = [ aws_subnet.Public_subnet.id ]
 
@@ -235,7 +235,7 @@ resource "aws_network_acl" "PUBLIC  " {
   }
 }
 
-resource "aws_network_acl" "PUBLIC  " {
+resource "aws_network_acl" "private_nacl" {
   vpc_id = aws_vpc.faks_vpc.id
   subnet_ids = [ aws_subnet.Private_subnet.id]
 
