@@ -204,3 +204,61 @@ resource "aws_security_group" "Faks_Sg_private" {
     from_port = 0
   }
 }
+
+/////// NACLS FOR THE VPB AND SUBNETS
+
+resource "aws_network_acl" "PUBLIC  " {
+  vpc_id = aws_vpc.faks_vpc.id
+  subnet_ids = [ aws_subnet.Public_subnet.id ]
+
+  egress {
+    protocol   = "tcp"
+    rule_no    = 200
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 80
+    to_port    = 80
+  }
+
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 80
+    to_port    = 80
+  }
+
+  tags = {
+    Name = "public_NACL"
+    key = "pb_nacl"
+  }
+}
+
+resource "aws_network_acl" "PUBLIC  " {
+  vpc_id = aws_vpc.faks_vpc.id
+  subnet_ids = [ aws_subnet.Private_subnet.id]
+
+  egress {
+    protocol   = "tcp"
+    rule_no    = 200
+    action     = "allow"
+    cidr_block = "10.0.0.0/24"
+    from_port  = 22
+    to_port    = 22
+  }
+
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "10.0.0.0/24"
+    from_port  = 22
+    to_port    = 22
+  }
+
+  tags = {
+    Name = "public_NACL"
+    key = "pb_nacl"
+  }
+}

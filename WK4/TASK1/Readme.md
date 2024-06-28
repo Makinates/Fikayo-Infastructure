@@ -27,3 +27,5 @@ To change the setting to auto apply the changes, I can set it to auto-apply:
     ![](./Assets/autoapply.png)
 - The apply shows you what resources were created and what resources failled to create and I can apply changes to create just those which failed:
     ![](./Assets/failedResources.png)
+It uses the current state file and figures out what new changes were added and what resources were not created and uses that to apply fixes. So instead of recreating the entire infastructure, it creates only the failed resources or any other resource which were modified.
+    ![](./Assets/FIXEDKEY.png)
