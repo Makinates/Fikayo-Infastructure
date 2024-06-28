@@ -220,6 +220,15 @@ resource "aws_network_acl" "public_nacl" {
     to_port    = 80
   }
 
+  egress {
+    protocol   = "tcp"
+    rule_no    = 200
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 22
+    to_port    = 22
+  }
+
   ingress {
     protocol   = "tcp"
     rule_no    = 100
@@ -227,6 +236,15 @@ resource "aws_network_acl" "public_nacl" {
     cidr_block = "0.0.0.0/0"
     from_port  = 80
     to_port    = 80
+  }
+
+   ingress {
+    protocol   = "tcp"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 22
+    to_port    = 22
   }
 
   tags = {
@@ -258,7 +276,7 @@ resource "aws_network_acl" "private_nacl" {
   }
 
   tags = {
-    Name = "public_NACL"
+    Name = "private_NACL"
     key = "pb_nacl"
   }
 }
