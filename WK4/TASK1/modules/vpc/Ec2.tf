@@ -4,10 +4,10 @@ resource "aws_instance" "Vm" {
   key_name = "Fikayo-keyPair1"
   user_data = <<-EOF
               #!/bin/bash
-              yum update -y
-              yum install -y httpd
-              systemctl start httpd
-              systemctl enable httpd
+              sudo yum update -y
+              sudo yum install -y httpd
+              ssudo ystemctl start httpd
+              sudo systemctl enable httpd
               wget https://github.com/prometheus/prometheus/releases/download/v2.52.0/prometheus-2.52.0.linux-amd64.tar.gz
               tar xvfv prometheus*.tar.gz
               sudo mv prometheus-2.52.0.linux-amd64 /opt/prometheus
