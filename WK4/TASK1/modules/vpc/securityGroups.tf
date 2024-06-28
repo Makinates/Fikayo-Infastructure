@@ -257,7 +257,7 @@ resource "aws_network_acl" "public_nacl" {
     to_port    = 443
   }
   ingress {
-    protocol   = "tcp"
+    protocol   = "icmp"
     rule_no    = 400
     action     = "allow"
     cidr_block = "0.0.0.0/0"
