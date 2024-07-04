@@ -6,7 +6,7 @@ resource "aws_instance" "Vm" {
               #!/bin/bash
               sudo yum update -y
               sudo yum install -y httpd
-              ssudo ystemctl start httpd
+              sudo systemctl start httpd
               sudo systemctl enable httpd
               wget https://github.com/prometheus/prometheus/releases/download/v2.52.0/prometheus-2.52.0.linux-amd64.tar.gz
               tar xvfv prometheus*.tar.gz
@@ -46,10 +46,9 @@ resource "aws_instance" "Vm-private-subnet" {
   key_name = "Fikayo-keyPair1"
   user_data = <<-EOF
               #!/bin/bash
-              yum update -y
-              yum install -y httpd
-              systemctl start httpd
-              systemctl enable httpd
+              sudo apt-get update
+              sudo apt-get install -y nginx
+              echo "<html><body><h1>Hello, World</h1></body></html>" > /var/www/html/index.html
               EOF
   network_interface {
     network_interface_id = aws_network_interface.ENI-private.id
