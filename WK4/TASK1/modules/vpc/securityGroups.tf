@@ -207,94 +207,94 @@ resource "aws_security_group" "Faks_Sg_private" {
 
 /////// NACLS FOR THE VPB AND SUBNETS
 
-resource "aws_network_acl" "public_nacl" {
-  vpc_id = aws_vpc.faks_vpc.id
-  subnet_ids = [ aws_subnet.Public_subnet.id ]
+# resource "aws_network_acl" "public_nacl" {
+#   vpc_id = aws_vpc.faks_vpc.id
+#   subnet_ids = [ aws_subnet.Public_subnet.id ]
 
-  # egress {
-  #   protocol   = "tcp"
-  #   rule_no    = 400
-  #   action     = "allow"
-  #   cidr_block = "0.0.0.0/0"
-  #   from_port  = 80
-  #   to_port    = 80
-  # }
+#   # egress {
+#   #   protocol   = "tcp"
+#   #   rule_no    = 400
+#   #   action     = "allow"
+#   #   cidr_block = "0.0.0.0/0"
+#   #   from_port  = 80
+#   #   to_port    = 80
+#   # }
 
-  egress {
-    protocol   = "-1"
-    rule_no    = 100
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port  = 0
-    to_port    = 0
+#   egress {
+#     protocol   = "-1"
+#     rule_no    = 100
+#     action     = "allow"
+#     cidr_block = "0.0.0.0/0"
+#     from_port  = 0
+#     to_port    = 0
     
-  }
+#   }
 
-  ingress {
-    protocol   = "tcp"
-    rule_no    = 100
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port  = 80
-    to_port    = 80
-  }
+#   ingress {
+#     protocol   = "tcp"
+#     rule_no    = 100
+#     action     = "allow"
+#     cidr_block = "0.0.0.0/0"
+#     from_port  = 80
+#     to_port    = 80
+#   }
 
-   ingress {
-    protocol   = "tcp"
-    rule_no    = 200
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port  = 22
-    to_port    = 22
-  }
+#    ingress {
+#     protocol   = "tcp"
+#     rule_no    = 200
+#     action     = "allow"
+#     cidr_block = "0.0.0.0/0"
+#     from_port  = 22
+#     to_port    = 22
+#   }
 
-  ingress {
-    protocol   = "tcp"
-    rule_no    = 300
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port  = 443
-    to_port    = 443
-  }
-  ingress {
-    protocol   = "icmp"
-    rule_no    = 400
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port  = 0
-    to_port    = 255
-  }
+#   ingress {
+#     protocol   = "tcp"
+#     rule_no    = 300
+#     action     = "allow"
+#     cidr_block = "0.0.0.0/0"
+#     from_port  = 443
+#     to_port    = 443
+#   }
+#   ingress {
+#     protocol   = "icmp"
+#     rule_no    = 400
+#     action     = "allow"
+#     cidr_block = "0.0.0.0/0"
+#     from_port  = 0
+#     to_port    = 255
+#   }
 
-  tags = {
-    Name = "public_NACL"
-    key = "pb_nacl"
-  }
-}
+#   tags = {
+#     Name = "public_NACL"
+#     key = "pb_nacl"
+#   }
+# }
 
-resource "aws_network_acl" "private_nacl" {
-  vpc_id = aws_vpc.faks_vpc.id
-  subnet_ids = [ aws_subnet.Private_subnet.id]
+# resource "aws_network_acl" "private_nacl" {
+#   vpc_id = aws_vpc.faks_vpc.id
+#   subnet_ids = [ aws_subnet.Private_subnet.id]
 
-  egress {
-    protocol   = "tcp"
-    rule_no    = 200
-    action     = "allow"
-    cidr_block = "10.0.0.0/24"
-    from_port  = 22
-    to_port    = 22
-  }
+#   egress {
+#     protocol   = "tcp"
+#     rule_no    = 200
+#     action     = "allow"
+#     cidr_block = "10.0.0.0/24"
+#     from_port  = 22
+#     to_port    = 22
+#   }
 
-  ingress {
-    protocol   = "tcp"
-    rule_no    = 100
-    action     = "allow"
-    cidr_block = "10.0.0.0/24"
-    from_port  = 22
-    to_port    = 22
-  }
+#   ingress {
+#     protocol   = "tcp"
+#     rule_no    = 100
+#     action     = "allow"
+#     cidr_block = "10.0.0.0/24"
+#     from_port  = 22
+#     to_port    = 22
+#   }
 
-  tags = {
-    Name = "private_NACL"
-    key = "pb_nacl"
-  }
-}
+#   tags = {
+#     Name = "private_NACL"
+#     key = "pb_nacl"
+#   }
+# }
