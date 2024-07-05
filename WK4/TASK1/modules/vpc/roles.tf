@@ -102,7 +102,7 @@ resource "aws_iam_role" "operations" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "attach_policy" {
+resource "aws_iam_role_policy_attachment" "attach_vpc_policy" {
   role       = aws_iam_role.operations.name
   policy_arn = aws_iam_policy.vpc_policy.arn
 }
@@ -144,7 +144,7 @@ resource "aws_iam_policy" "secrets_management_policy" {
 }
 
 
-resource "aws_iam_role_policy_attachment" "attach_policy" {
+resource "aws_iam_role_policy_attachment" "attach_secrets_policy" {
   role       = aws_iam_role.secrets_management_role.name
   policy_arn = aws_iam_policy.secrets_management_policy.arn
 }
