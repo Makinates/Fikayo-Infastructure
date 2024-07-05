@@ -3,7 +3,7 @@ resource "aws_secretsmanager_secret" "my_database_secret" {
 }
 
 resource "aws_secretsmanager_secret_version" "my_database_secret_version" {
-  secret_id     = aws_secretsmanager_secret.my_secret.id
+  secret_id     = aws_secretsmanager_secret.my_database_secret.id
   secret_string = jsonencode({
     username = "my_username",
     password = "my_password"
