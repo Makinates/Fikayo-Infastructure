@@ -29,3 +29,11 @@ To change the setting to auto apply the changes, I can set it to auto-apply:
     ![](./Assets/failedResources.png)
 It uses the current state file and figures out what new changes were added and what resources were not created and uses that to apply fixes. So instead of recreating the entire infastructure, it creates only the failed resources or any other resource which were modified.
     ![](./Assets/FIXEDKEY.png)
+
+
+I set up all the resources and then transferred my key to the public ec2 instance using 
+```
+ scp -i "D:\\Documents\\Documents\\Fikayo-Infastructure\\WK4\\TASK1\\Fikayo-keyPair1.pem" "D:\\Documents\\Documents\\Fikayo-Infastructure\\WK4\\TASK1\\Fikayo-keyPair1.pem" ec2-user@35.172.103.124:/home/ec2-user/Fikayo-keyPair1.pem
+```
+
+Once the key was transferred, I SSH'ed into the private Ec2 instance 
