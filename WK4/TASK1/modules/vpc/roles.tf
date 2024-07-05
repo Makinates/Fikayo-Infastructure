@@ -109,7 +109,7 @@ resource "aws_iam_role_policy_attachment" "attach_vpc_policy" {
 
 
 resource "aws_iam_role" "secrets_management_role" {
-  name               = "Developers"
+  name               = "Secrets"
   assume_role_policy = jsonencode({
     "Version": "2012-10-17",
     "Statement": [

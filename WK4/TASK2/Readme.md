@@ -32,3 +32,6 @@ The security Measures I implemented basically followws the least priviledge meth
 
 ### Secrets Management 
 For this Task I used terraform to create the secrets Manager
+Code to secretsConfig - [Secrets](../TASK1/modules/vpc/SecretManager.tf)
+
+I also Granted acces to the Ec2 
