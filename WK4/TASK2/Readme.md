@@ -31,4 +31,4 @@ The security Measures I implemented basically followws the least priviledge meth
 
 
 ### Secrets Management 
-For this Task I used Azure
+For this Task I used terraform to create the secrets Manager
