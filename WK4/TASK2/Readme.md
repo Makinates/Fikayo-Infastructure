@@ -34,4 +34,40 @@ The security Measures I implemented basically followws the least priviledge meth
 For this Task I used terraform to create the secrets Manager
 Code to secretsConfig - [Secrets](../TASK1/modules/vpc/SecretManager.tf)
 
-I also Granted acces to the Ec2 
+I also Granted acces to the Ec2 instances which will run the application to be able to access the secrets manager in order to retrive the secrets.
+ - - Link to roles and Policies - [Roles and Policies](../TASK1/modules/vpc/roles.tf)
+
+ ***Code snippet in Application which will extract the keys from the manager***
+
+ ```c#
+ using Amazon.SecretsManager;
+using Amazon.SecretsManager.Model;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Threading.Tasks;
+
+public class SecretsManagerService
+{
+    private readonly IAmazonSecretsManager _secretsManager;
+
+    public SecretsManagerService(IAmazonSecretsManager secretsManager)
+    {
+        _secretsManager = secretsManager;
+    }
+
+    public async Task<string> GetSecretAsync(string secretName)
+    {
+        var request = new GetSecretValueRequest
+        {
+            SecretId = secretName
+        };
+
+        var response = await _secretsManager.GetSecretValueAsync(request);
+
+        return response.SecretString;
+    }
+}
+ ```
+
+
+ N:B I do not have an application that runs this but I know this will work as I use this process on Azure key vault just have to switch the nuget packgae from azure to AWS.
