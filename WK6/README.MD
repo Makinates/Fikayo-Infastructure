@@ -193,3 +193,45 @@ Link to Guide - [VPN INSTALLATION](https://ubuntu.com/server/docs/how-to-install
     dh dh2048.pem
     ```
 
+#### Branch server
+
+     It follows mostly the same steps as the main server except for few minor changes 
+
+        -  Install dhcp and bind9 as above
+      - Configure bind9
+        ```
+        options {
+        directory "/var/cache/bind";
+        forwarders { <main-office-dns-ip>; };
+        allow-query { localhost; 10.0.2.0/24; };
+        allow-recursion { localhost; 10.0.2.0/24; };
+        recursion yes;
+        dnssec-validation auto;
+        listen-on { 10.0.2.0/24; };
+        listen-on-v6 { none; };
+        }   ;
+        ```
+        ```
+        zone "branchoffice.local" {
+            type slave;
+            file "/var/lib/bind/db.branchoffice.local";
+            masters { 10.0.2.1; };  
+        };
+        ```
+
+
+
+     - Update Firewalls
+        ```
+        sudo iptables -A INPUT -p udp -s 192.168.2.0/24 --dport 53 -j ACCEPT
+        sudo iptables -A INPUT -p tcp -s 192.168.2.0/24 --dport 53 -j ACCEPT
+
+        ```
+
+On configuring the branch office, I was able to dig the mainoffice using this:
+
+ ![](./Assets/Dig.png)
+
+   
+
+   

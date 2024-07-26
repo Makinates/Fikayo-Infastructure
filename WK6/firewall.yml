@@ -1,0 +1,28 @@
+---
+- name: Configure Firewall Rules
+  hosts: all
+  become: yes
+  tasks:
+    - name: Allow DNS
+      ufw:
+        rule: allow
+        name: "DNS"
+        port: 53
+
+    - name: Allow DHCP
+      ufw:
+        rule: allow
+        name: "DHCP"
+        port: 67
+
+    - name: Allow NTP
+      ufw:
+        rule: allow
+        name: "NTP"
+        port: 123
+
+    - name: Allow VPN
+      ufw:
+        rule: allow
+        name: "VPN"
+        port: 1194/tcp

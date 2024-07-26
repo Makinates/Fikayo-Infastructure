@@ -1,0 +1,19 @@
+---
+- name: Configure DHCP Server
+  hosts: dhcp_servers
+  become: yes
+  tasks:
+    - name: Install DHCP server
+      apt:
+        name: isc-dhcp-server
+        state: present
+
+    - name: Configure DHCP server
+      template:
+        src: dhcpd.conf.j2
+        dest: /etc/dhcp/dhcpd.conf
+
+    - name: Restart DHCP server
+      systemd:
+        name: isc-dhcp-server
+        state: restarted
