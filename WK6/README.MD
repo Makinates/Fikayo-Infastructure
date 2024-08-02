@@ -232,6 +232,17 @@ On configuring the branch office, I was able to dig the mainoffice using this:
 
  ![](./Assets/Dig.png)
 
-   
 
-   
+Pinging from the branch office
+
+![](./Assets/ping.png)
+
+
+### Using Nmap
+
+```
+sudo apt install nmap 
+sudo nmap 10.0.2.15 
+```
+
+![](./Assets/nmap.png)
