@@ -192,7 +192,16 @@ Link to Guide - [VPN INSTALLATION](https://ubuntu.com/server/docs/how-to-install
     key myservername.key
     dh dh2048.pem
     ```
+![](./Assets/VPN.png)
 
+I then installed ssh to allow for transferring of files securely.
+```
+sudo apt install openssh-server
+sudo systemctl start ssh
+
+```
+
+![](./Assets/ssh.png)
 #### Branch server
 
      It follows mostly the same steps as the main server except for few minor changes 
