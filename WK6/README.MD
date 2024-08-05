@@ -1,5 +1,5 @@
 ### NETWORK ADMINISTRATION
-
+![](./Assets/Network_Diagram.jpeg)
 In order to start this task, I had to install virtual box which allows me to create several VM'S in order to complete the tasks.
 myguest.virtualbox.org
 ## Creating my Ubuntu and windows VM
