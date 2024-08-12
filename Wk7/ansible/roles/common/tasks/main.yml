@@ -1,0 +1,42 @@
+---
+# Run the initial hardening script
+- name: Run initial hardening script
+  script: /etc/ansible/hardening.sh
+  args:
+    creates: /var/log/hardening_done.log
+
+# Install AIDE
+- name: Install AIDE
+  apt:
+    name: aide
+    state: present
+
+# Initialize AIDE database
+- name: Initialize AIDE database
+  command: /usr/sbin/aideinit
+  args:
+    creates: /var/lib/aide/aide.db.new
+
+# Configure AIDE
+- name: Configure AIDE
+  template:
+    src: aide.conf.j2
+    dest: /etc/aide/aide.conf
+    owner: root
+    group: root
+    mode: 0644
+
+# Setup AIDE cron job
+- name: Setup AIDE cron job
+  cron:
+    name: "AIDE daily check"
+    job: "/usr/sbin/aide --check | mail -s 'AIDE Integrity Check Report' your@email.com"
+    minute: 0
+    hour: 3
+    user: root
+
+# Apply CIS Benchmark recommendations
+- name: Apply CIS Benchmark recommendations
+  command: cis-benchmark.sh
+  args:
+    creates: /var/log/cis_benchmark_done.log

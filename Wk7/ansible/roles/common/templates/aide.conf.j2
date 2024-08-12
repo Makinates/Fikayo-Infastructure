@@ -1,0 +1,10 @@
+# AIDE configuration file (aide.conf.j2)
+@@define DBDIR /var/lib/aide
+@@define LOGDIR /var/log/aide
+
+database=file:@@{DBDIR}/aide.db.gz
+database_out=file:@@{DBDIR}/aide.db.new.gz
+gzip_dbout=yes
+report_url=stdout
+
+All=R+p+i+n+u+g+s+m+S+sha512
